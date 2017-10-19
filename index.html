@@ -34,35 +34,27 @@
     <div id="tabContent1" style="display: none;"><div>adsasddasdasadsadsads</div></div>
     <div id="tabContent2" style="display: none;"><div>啊啊啊啊所大多所多撒奥多所无</div></div>
     <div id="tabContent3" style="display: none;"><div>adsasdqweqweqwwrrdfggffggf</div></div>
-
-    <div style="margin-bottom:10px" id='testId'>
-      <a href="#" class="easyui-linkbutton J_Tabs" data-title='2015测试' data-value='1'>2015</a>
-      <a href="#" class="easyui-linkbutton J_Tabs" data-title='2016测试' data-value='2'>2016</a>
-      <a href="#" class="easyui-linkbutton J_Tabs" data-title='2017测试' data-value='3'>2017</a>
-    </div>
-    <div id="containerId" class="easyui-tabs hidden" style="width:400px;height:250px;"></div>
+    <input text="number" id="inputId" style="width: 200px; height: 26px; border: 1px solid red;" />
+    <div id="containerId"></div>
     <script>  
-      // 外部点击调用 
-      /*
-      $("#testId").on('click', '.J_Tabs', function(){
-        var title = $(this).attr('data-title');
-        var value = $(this).attr('data-value');
-        var content = $('#tabContent'+value).html();
-        new AddTabs({
-          title: title,
-          content: content,
-          container: '#containerId'
-        });
-      });
-      */
-      // 内部调用
-      new AddTabs({
-        tabItem: '.J_Tabs',
-        container: '#containerId',
-        closedItemCallBack: function(title, index, len) {
-          console.log(title);
-          console.log(index);
-          console.log(len)
+      $("#inputId").keyup(function(e){
+        var value = e.target.value - 0;
+        if (value > 0) {
+         var $panel = new AddTabs({
+            value: value,
+            prefixContent: 'tabContent',
+            container: '#containerId',
+            closedItemCallBack: function(obj){
+              var len = obj.len;
+              var $this = obj.$this;
+              if (len === 0) {
+                $("#inputId").val('');
+              } else {
+                $("#inputId").val(len);
+              }
+              $this.setValue(len);
+            }
+          });
         }
       });
     </script>
